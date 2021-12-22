@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: studentdemo-service
+  labels:
+    app: studentdemo
+spec:
+  ports:
+    - port: 80
+  selector:
+     app: studentdemo
+     tier: api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: studentdemo-deployment
+  labels:
+    app: studentdemo
+spec:
+  selector:
+    matchLabels:
+      app: studentdemo
+      tier: api
+  template:
+    metadata:
+      labels:
+        app: studentdemo
+        tier: api
+    spec:
+      containers:
+      - image: liuyuchen777/studentdemo
+        name: studentdemo-api
+        env:
+        - name: DB_HOST
+          value: postgres-db-lb
+        - name: DB_PASSWORD
+          value: testpassword
+        ports:
+        - containerPort: 80
+          name: studentdemo

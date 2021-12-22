@@ -1,0 +1,13 @@
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/bin/Debug/netcoreapp3.1/EFStudy.deps.json
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/bin/Debug/netcoreapp3.1/EFStudy.runtimeconfig.json
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/bin/Debug/netcoreapp3.1/EFStudy.runtimeconfig.dev.json
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/bin/Debug/netcoreapp3.1/EFStudy.dll
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/bin/Debug/netcoreapp3.1/EFStudy.pdb
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.csproj.AssemblyReference.cache
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.AssemblyInfoInputs.cache
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.AssemblyInfo.cs
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.csproj.CoreCompileInputs.cache
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.dll
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.pdb
+/Users/ar-yuchen.liu/Projects/CSharpStudy/EFStudy/obj/Debug/netcoreapp3.1/EFStudy.genruntimeconfig.cache

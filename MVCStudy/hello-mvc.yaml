@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-mvc
+spec:
+  selector:
+    matchLabels:
+      app: hello-mvc
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: hello-mvc
+    spec:
+      containers:
+      - name: hello-mvc
+        image: mvcstudy
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
