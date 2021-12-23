@@ -10,39 +10,38 @@ using Microsoft.EntityFrameworkCore;
 using StudentDemo.Datas;
 using StudentDemo.Models;
 using StudentDemo.Atrributes;
-
+using StudentDemo.Attributes;
 
 namespace StudentDemo.Controllers
 {
+    [ServiceFilter(typeof(MigrateFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class TeacherController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        private bool _flag;
+        // private bool _flag;
 
         public TeacherController(ApplicationContext context)
         {
             _context = context;
-            _flag = false;
+            // _flag = false;
         }
 
-        private void InitialDatabase()
-        {
-            if (_flag == false)
-            {
-                _context.Database.Migrate();
-                _flag = true;
-            }
-        }
+        //private void InitialDatabase()
+        //{
+        //    if (_flag == false)
+        //    {
+        //        _context.Database.Migrate();
+        //        _flag = true;
+        //    }
+        //}
 
         // GET: api/Teacher
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-            InitialDatabase();
-
-            Console.WriteLine("Hello World!");
+            // InitialDatabase();
 
             return await _context.Teachers.ToListAsync();
         }
@@ -51,7 +50,7 @@ namespace StudentDemo.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
-            InitialDatabase();
+            // InitialDatabase();
 
             var teacher = await _context.Teachers.FindAsync(id);
 
@@ -69,7 +68,7 @@ namespace StudentDemo.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
         {
-            InitialDatabase();
+            // InitialDatabase();
 
             if (id != teacher.Id)
             {
@@ -103,7 +102,7 @@ namespace StudentDemo.Controllers
         [HttpPost]
         public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
-            InitialDatabase();
+            // InitialDatabase();
 
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
@@ -115,7 +114,7 @@ namespace StudentDemo.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Teacher>> DeleteTeacher(int id)
         {
-            InitialDatabase();
+            // InitialDatabase();
 
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
@@ -131,7 +130,7 @@ namespace StudentDemo.Controllers
 
         private bool TeacherExists(int id)
         {
-            InitialDatabase();
+            // InitialDatabase();
 
             return _context.Teachers.Any(e => e.Id == id);
         }

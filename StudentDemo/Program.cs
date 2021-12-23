@@ -25,7 +25,6 @@ namespace StudentDemo
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                })
-                .UseServiceProviderFactory(new DynamicProxyServiceProviderFactory());
+                });
     }
 }

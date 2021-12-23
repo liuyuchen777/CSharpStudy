@@ -17,7 +17,8 @@ using AspectCore.DependencyInjection;
 using AspectCore.Extensions.DependencyInjection;
 using StudentDemo.Controllers;
 using AspectCore.Configuration;
-using StudentDemo.Atrributes;
+using StudentDemo.Others;
+using StudentDemo.Attributes;
 
 namespace StudentDemo
 {
@@ -45,18 +46,13 @@ namespace StudentDemo
 
             services.AddControllers();
 
-            services.AddTransient<ControllerBase, TeacherController>();
-
-            services.ConfigureDynamicProxy(config =>
-            {
-                config.Interceptors.AddTyped<CustomInterceptorAttribute>(Predicates.ForMethod("*Teacher"));
-            });
+            services.AddSingleton<GlobalFlag>();
+            services.AddScoped<MigrateFilterAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -70,6 +66,16 @@ namespace StudentDemo
             {
                 endpoints.MapControllers();
             });
+
+            // InitialDatabase(app);
+        }
+
+        public void InitialDatabase(IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<ApplicationContext>().Database.Migrate();
+            }
         }
     }
 }
