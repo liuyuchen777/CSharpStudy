@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "democluster-1260"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "democluster-1260"
+  template:
+    metadata:
+      labels:
+        app: "democluster-1260"
+    spec:
+      containers:
+        - name: "democluster-1260"
+          image: "liuyuchentit.azurecr.io/democluster"
+          ports:
+          - containerPort: 80
