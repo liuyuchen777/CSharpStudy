@@ -11,6 +11,7 @@ using StudentDemo.Models;
 
 namespace StudentDemo.Controllers
 {
+    [ServiceFilter(typeof(MigrateFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class ClassController : ControllerBase
