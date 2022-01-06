@@ -44,7 +44,7 @@ stages:
 
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.workspace)/s/k8s-azure'
+        targetPath: '$(Pipeline.Workspace)/s/k8s-azure'
         artifact: 'manifests'
         publishLocation: 'pipeline'
 
@@ -72,8 +72,6 @@ stages:
             displayName: Create imagePullSecret
             inputs:
               action: createSecret
-              kubernetesServiceConnection: 'DemoForAKS'
-              namespace: 'default'
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
@@ -81,8 +79,6 @@ stages:
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
-              kubernetesServiceConnection: 'DemoForAKS'
-              namespace: 'default'
               manifests: |
                 '$(Pipeline.Workspace)/manifests/studentdemo-deployment.yaml'
               imagePullSecrets: |
