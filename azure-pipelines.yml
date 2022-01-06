@@ -54,7 +54,7 @@ stages:
 
   jobs:
   - deployment: Deploy
-    displayName: Deploy
+    displayName: Deploy to AKS
     pool:
       vmImage: $(vmImageName)
     environment: 'liuyuchen777CSharpStudy.default'
@@ -80,7 +80,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                '$(Pipeline.Workspace)/manifests/studentdemo-deployment.yaml'
+                $(Pipeline.Workspace)/manifests/studentdemo-deployment.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
