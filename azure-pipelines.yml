@@ -15,6 +15,7 @@ variables:
   imageRepository: 'studentdemo'
   containerRegistry: 'demoforcr.azurecr.io'
   dockerfilePath: 'StudentDemo/Dockerfile'
+  k8sFilePath: 'StudentDemo/k8s-azure'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'demoforcrb232-auth'
 
@@ -70,8 +71,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(k8sFilePath)/studentdemo-deployment.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |

@@ -1,4 +1,16 @@
-# PostgreSQL StatefulSet
+# PostgreSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db-sertvice
+spec:
+  selector:
+    app: postgresql-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+# PostgreSQL Deployment
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
