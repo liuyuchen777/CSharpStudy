@@ -15,14 +15,13 @@ variables:
   imageRepository: 'studentdemo'
   containerRegistry: 'demoforcr.azurecr.io'
   dockerfilePath: 'StudentDemo/Dockerfile'
-  k8sFilePath: 'StudentDemo/k8s-azure'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'demoforcrb232-auth'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
-
+# build image
 stages:
 - stage: Build
   displayName: Build stage
@@ -41,9 +40,13 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          latest
 
-    - upload: manifests
-      artifact: manifests
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.workspace)/s/k8s-azure'
+        artifact: 'manifests'
+        publishLocation: 'pipeline'
 
 - stage: Deploy
   displayName: Deploy stage
@@ -59,10 +62,18 @@ stages:
       runOnce:
         deploy:
           steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'manifests'
+              targetPath: '$(Pipeline.Workspace)/manifests'
+
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
               action: createSecret
+              kubernetesServiceConnection: 'DemoForAKS'
+              namespace: 'default'
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
@@ -70,10 +81,11 @@ stages:
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
+              kubernetesServiceConnection: 'DemoForAKS'
+              namespace: 'default'
               manifests: |
-                $(k8sFilePath)/studentdemo-deployment.yaml
+                '$(Pipeline.Workspace)/manifests/studentdemo-deployment.yaml'
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
-
